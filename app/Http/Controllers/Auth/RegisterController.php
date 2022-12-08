@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Request;
 
 class RegisterController extends Controller
 {
@@ -71,7 +72,8 @@ class RegisterController extends Controller
 
         $points = 0;
         if($us){
-            $points = 5;
+            $us->points = 5;
+            $us->update();
         }
 
         return User::create([
@@ -81,5 +83,8 @@ class RegisterController extends Controller
             'points' => $points,
             'refferal_code' => Str::random(20),
         ]);
+
     }
+
+
 }
